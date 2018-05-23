@@ -2,6 +2,7 @@ package com.example.xyzreader.ui;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ShareCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -57,6 +59,7 @@ public class ArticleDetailFragment extends Fragment implements
     private ColorDrawable mStatusBarColorDrawable;
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+    private AppCompatActivity appCompatActivity;
 
     private int mTopInset;
     private View mPhotoContainerView;
@@ -84,6 +87,13 @@ public class ArticleDetailFragment extends Fragment implements
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(arguments);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        appCompatActivity = (AppCompatActivity) context;
+
     }
 
     @Override
@@ -120,8 +130,13 @@ public class ArticleDetailFragment extends Fragment implements
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
         mDrawInsetsFrameLayout = mRootView.findViewById(R.id.draw_insets_frame_layout);
-        appBarLayout=mRootView.findViewById(R.id.appbar_layout_fragment);
-        collapsingToolbarLayout = mRootView.findViewById(R.id.collapsing_toolbar_layout_fragment);
+        appBarLayout = mRootView.findViewById(R.id.appbar_layout_fragment);
+
+        View decorView = getActivity().getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
+        //collapsingToolbarLayout = mRootView.findViewById(R.id.collapsing_toolbar_layout_fragment);
 
 //        mDrawInsetsFrameLayout.setOnInsetsCallback(new DrawInsetsFrameLayout.OnInsetsCallback() {
 //            @Override
@@ -141,7 +156,7 @@ public class ArticleDetailFragment extends Fragment implements
 //            }
 //        });
 
-                mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
+        mPhotoView = (ImageView) mRootView.findViewById(R.id.photo);
 //        mPhotoContainerView = mRootView.findViewById(R.id.photo_container);
 
         mStatusBarColorDrawable = new ColorDrawable(0);
@@ -212,7 +227,17 @@ public class ArticleDetailFragment extends Fragment implements
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
 
         final Toolbar toolbar = mRootView.findViewById(R.id.toolbar_fragment);
+        collapsingToolbarLayout = mRootView.findViewById(R.id.collapsing_toolbar_layout_fragment);
+        appCompatActivity.setSupportActionBar(toolbar);
+        appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        appCompatActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                appCompatActivity.onSupportNavigateUp();
+            }
+        });
 
         bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
@@ -221,8 +246,7 @@ public class ArticleDetailFragment extends Fragment implements
             mRootView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
             titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
-            collapsingToolbarLayout.setTitleEnabled(false);
-            toolbar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+
 
             appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
                 boolean isShow = true;
@@ -234,17 +258,11 @@ public class ArticleDetailFragment extends Fragment implements
                         scrollRange = appBarLayout.getTotalScrollRange();
                     }
                     if (scrollRange + verticalOffset == 0) {
-                        toolbar.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
+                        collapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
                         isShow = true;
-                        View decorView = getActivity().getWindow().getDecorView();
-                        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-                        decorView.setSystemUiVisibility(uiOptions);
-                    } else if(isShow) {
-                        toolbar.setTitle(" ");
+                    } else if (isShow) {
+                        collapsingToolbarLayout.setTitle(" ");
                         isShow = false;
-                        View decorView = getActivity().getWindow().getDecorView();
-                        int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
-                        decorView.setSystemUiVisibility(uiOptions);
                     }
                 }
             });
