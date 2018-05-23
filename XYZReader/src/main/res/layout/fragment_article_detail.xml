@@ -7,7 +7,8 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout_fragment"
         android:layout_width="match_parent"
-        android:layout_height="192dp">
+        android:layout_height="@dimen/detail_photo_height"
+        app:elevation="@dimen/appbar_elevation">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout_fragment"
@@ -19,6 +20,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
+
                 android:id="@+id/photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -123,7 +125,6 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:background="@drawable/add_fab_background"
         android:contentDescription="@string/action_share"
-        android:elevation="@dimen/fab_elevation"
         android:src="@drawable/ic_share"
         app:elevation="@dimen/fab_elevation"
         app:fabSize="normal" />
