@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/item_thumbnail_height"
             android:adjustViewBounds="true"
             android:background="@color/photo_placeholder"
             android:scaleType="centerCrop"
@@ -34,10 +34,10 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="4"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="8dp"
+            android:paddingBottom="@dimen/article_title_to_subtitle_padding"
+            android:paddingLeft="@dimen/article_title_padding"
+            android:paddingRight="@dimen/article_title_padding"
+            android:paddingTop="@dimen/article_title_padding"
             android:textColor="@color/colorPrimaryText" />
 
         <TextView
@@ -47,10 +47,10 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:paddingBottom="8dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="4dp"
+            android:paddingBottom="@dimen/article_subtitle_padding"
+            android:paddingLeft="@dimen/article_subtitle_padding"
+            android:paddingRight="@dimen/article_subtitle_padding"
+            android:paddingTop="@dimen/article_title_to_subtitle_padding"
             android:textColor="@color/colorSecondaryText" />
     </LinearLayout>
 

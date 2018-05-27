@@ -1,6 +1,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/draw_insets_frame_layout"
+    android:id="@+id/fragment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -36,7 +36,6 @@
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin">
-                <!--android:layout_marginTop="25dp"-->
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -49,17 +48,12 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="0dp"
-                android:background="#fff"
+                android:background="@color/textbody_background"
                 android:elevation="2dp"
                 android:maxWidth="@dimen/detail_card_max_width"
                 android:orientation="vertical">
@@ -70,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="@dimen/detail_metabar_vert_padding"
-                    android:background="#333"
+                    android:background="@color/colorPrimary"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/detail_metabar_vert_padding"
                     android:paddingLeft="@dimen/detail_inner_horiz_margin"
@@ -78,7 +72,7 @@
                     android:paddingTop="@dimen/detail_metabar_vert_padding">
 
                     <TextView
-                        android:id="@+id/article_title"
+                        android:id="@+id/article_title_fragment"
                         style="?android:attr/textAppearanceLarge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,7 +88,7 @@
                         style="?android:attr/textAppearanceSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#8fff" />
+                        android:textColor="@color/byline_color" />
                 </LinearLayout>
 
                 <TextView
@@ -112,7 +106,8 @@
                     android:textSize="@dimen/detail_body_text_size" />
 
             </LinearLayout>
-        </FrameLayout>
+
+
     </android.support.v4.widget.NestedScrollView>
 
 
